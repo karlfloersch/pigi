@@ -43,7 +43,8 @@ export class SyncDB implements OnStart {
    * @returns Last synced block number.
    */
   public async getLastLoggedBlock(event: string): Promise<number> {
-    return (await this.db.get(`lastlogged:${event}`, -1)) as number
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -52,7 +53,8 @@ export class SyncDB implements OnStart {
    * @param block Last synced block number.
    */
   public async setLastLoggedBlock(event: string, block: number): Promise<void> {
-    await this.db.put(`lastlogged:${event}`, block)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -61,7 +63,8 @@ export class SyncDB implements OnStart {
    * @returns `true` if the event has been seen, `false` otherwise.
    */
   public async getEventSeen(event: string): Promise<boolean> {
-    return (await this.db.get(`seen:${event}`, false)) as boolean
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -69,7 +72,8 @@ export class SyncDB implements OnStart {
    * @param event Hash of the event.
    */
   public async setEventSeen(event: string): Promise<void> {
-    await this.db.put(`seen:${event}`, true)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -77,7 +81,8 @@ export class SyncDB implements OnStart {
    * @returns Last synced block number.
    */
   public async getLastSyncedBlock(): Promise<number> {
-    return (await this.db.get('sync:block', -1)) as number
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -85,7 +90,8 @@ export class SyncDB implements OnStart {
    * @param block Block number to set.
    */
   public async setLastSyncedBlock(block: number): Promise<void> {
-    await this.db.put('sync:block', block)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -93,10 +99,8 @@ export class SyncDB implements OnStart {
    * @returns An array of encoded transactions.
    */
   public async getFailedTransactions(): Promise<Transaction[]> {
-    const encodedTxs = (await this.db.get('sync:failed', [])) as string[]
-    return encodedTxs.map((encodedTx) => {
-      return Transaction.from(encodedTx)
-    })
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -104,7 +108,8 @@ export class SyncDB implements OnStart {
    * @param transactions An array of encoded transactions.
    */
   public async setFailedTransactions(transactions: string[]): Promise<void> {
-    await this.db.put('sync:failed', transactions)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -115,7 +120,8 @@ export class SyncDB implements OnStart {
     const objects = events.map((event) => {
       return { type: 'put', key: `event:${event.hash}`, value: true }
     })
-    await this.db.batch(objects)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**

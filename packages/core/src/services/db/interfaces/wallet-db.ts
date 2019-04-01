@@ -37,7 +37,8 @@ export class WalletDB implements OnStart {
    * @returns a list of account addresses.
    */
   public async getAccounts(): Promise<string[]> {
-    return (await this.db.get('accounts', [])) as string[]
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -46,15 +47,8 @@ export class WalletDB implements OnStart {
    * @returns an Ethereum account object.
    */
   public async getAccount(address: string): Promise<EthereumAccount> {
-    const keystore = (await this.db.get(
-      `keystore:${address}`,
-      undefined
-    )) as EthereumAccount
-    if (keystore === undefined) {
-      throw new Error('Account not found.')
-    }
-
-    return Account.fromPrivate(keystore.privateKey)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -62,9 +56,7 @@ export class WalletDB implements OnStart {
    * @param account An Ethereum account object.
    */
   public async addAccount(account: EthereumAccount): Promise<void> {
-    const accounts = await this.getAccounts()
-    accounts.push(account.address)
-    await this.db.put('accounts', accounts)
-    await this.db.put(`keystore:${account.address}`, account)
+    throw Error('Not Implmeneted')
+    return null
   }
 }

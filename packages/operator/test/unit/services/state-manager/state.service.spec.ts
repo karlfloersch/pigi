@@ -1,10 +1,9 @@
-import '../../../setup'
-import { dbRootPath } from '../../../setup'
+import { should, dbRootPath } from '../../../setup'
 
 /* External Imports */
 import BigNum = require('bn.js')
 import { DBService, ConfigService, EphemDBProvider, LevelDB } from '@pigi/core'
-const path = require('path')
+import path = require('path')
 
 /* Internal Imports */
 import { StateService } from '../../../../src/services/state-manager/state.service'
@@ -20,5 +19,7 @@ describe('StateService', () => {
   const stateService = new StateService(db, txLog)
 
   it('should open two DBs', async () => {
+    await stateService.onStart()
+    console.log('testing')
   })
 })

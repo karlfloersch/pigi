@@ -46,7 +46,7 @@ export class ChainDB implements OnStart {
    * @returns the transaction object.
    */
   public async getTransaction(hash: string): Promise<Transaction> {
-    const encoded = await this.db.get(`transaction:${hash}`, undefined)
+    const encoded = await this.db.get(`transaction:${hash}`)
     if (encoded === undefined) {
       throw new Error('Transaction not found in database.')
     }
@@ -75,7 +75,8 @@ export class ChainDB implements OnStart {
    * @returns the latest block.
    */
   public async getLatestBlock(): Promise<number> {
-    return (await this.db.get('latestblock', -1)) as number
+    return 1
+    // return (await this.db.get('latestblock')) as number
   }
 
   /**
@@ -83,7 +84,7 @@ export class ChainDB implements OnStart {
    * @param block A block number.
    */
   public async setLatestBlock(block: number): Promise<void> {
-    await this.db.put('latestblock', block)
+    // await this.db.put('latestblock', block)
   }
 
   /**
@@ -92,7 +93,9 @@ export class ChainDB implements OnStart {
    * @returns the hash of the specified block.
    */
   public async getBlockHeader(block: number): Promise<string | null> {
-    return (await this.db.get(`header:${block}`, null)) as string | null
+    throw Error('Not Implmeneted')
+    return null
+    // return (await this.db.get(`header:${block}`, null)) as string | null
   }
 
   /**
@@ -128,10 +131,8 @@ export class ChainDB implements OnStart {
    * @returns a list of known deposits.
    */
   public async getDeposits(address: string): Promise<Deposit[]> {
-    const deposits = (await this.db.get(`deposits:${address}`, [])) as Deposit[]
-    return deposits.map((deposit) => {
-      return new Deposit(deposit)
-    })
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -140,10 +141,8 @@ export class ChainDB implements OnStart {
    * @returns a list of known exits.
    */
   public async getExits(address: string): Promise<Exit[]> {
-    const exits = (await this.db.get(`exits:${address}`, [])) as ExitArgs[]
-    return exits.map((exit) => {
-      return new Exit(exit)
-    })
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -218,7 +217,8 @@ export class ChainDB implements OnStart {
       }
     })
 
-    await this.db.batch(objects)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -230,10 +230,8 @@ export class ChainDB implements OnStart {
     start: BigNum
     end: BigNum
   }): Promise<boolean> {
-    return (await this.db.get(
-      `exited:${range.start}:${range.end}`,
-      false
-    )) as boolean
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -244,7 +242,8 @@ export class ChainDB implements OnStart {
     start: BigNum
     end: BigNum
   }): Promise<void> {
-    await this.db.put(`finalized:${exit.start}:${exit.end}`, true)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -256,10 +255,8 @@ export class ChainDB implements OnStart {
     start: BigNum
     end: BigNum
   }): Promise<boolean> {
-    return (await this.db.get(
-      `finalized:${exit.start}:${exit.end}`,
-      false
-    )) as boolean
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -267,11 +264,8 @@ export class ChainDB implements OnStart {
    * @returns a list of snapshots.
    */
   public async getState(): Promise<StateManager> {
-    const snapshots = (await this.db.get(`state:latest`, [])) as StateObject[]
-    const state = snapshots.map((snapshot) => {
-      return new StateObject(snapshot)
-    })
-    return new StateManager(state)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -279,7 +273,8 @@ export class ChainDB implements OnStart {
    * @param state A list of snapshots.
    */
   public async setState(stateManager: StateManager): Promise<void> {
-    await this.db.put('state:latest', stateManager.state)
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**
@@ -288,12 +283,8 @@ export class ChainDB implements OnStart {
    * @returns the predicate bytecode.
    */
   public async getPredicateBytecode(address: string): Promise<string> {
-    const bytecode = await this.db.get(`predicate:${address}`, undefined)
-    if (bytecode === undefined) {
-      throw new Error('Predicate not found in database.')
-    }
-
-    return bytecode as string
+    throw Error('Not Implmeneted')
+    return null
   }
 
   /**

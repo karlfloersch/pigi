@@ -1,4 +1,4 @@
-export type DBValue = string | object | number | boolean
+export type DBValue = NonNullable<string | Buffer>
 
 export type DBResult = DBValue | DBValue[]
 
@@ -28,7 +28,7 @@ export interface DBIterator {
 
 export interface BaseDBProvider {
   start(): Promise<void>
-  get<T>(key: Buffer | string, fallback?: T): Promise<T | DBResult>
+  get(key: Buffer | string): Promise<DBValue>
   put(key: Buffer | string, value: DBValue): Promise<void>
   del(key: Buffer | string): Promise<void>
   exists(key: Buffer | string): Promise<boolean>

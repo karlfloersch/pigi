@@ -59,10 +59,7 @@ export class LevelDB implements BaseDBProvider {
    * @param fallback A fallback value if the key doesn't exist.
    * @returns the stored value or the fallback.
    */
-  public async get<T>(
-    key: Buffer | string,
-    fallback?: T
-  ): Promise<T | DBResult> {
+  public async get(key: Buffer | string): Promise<DBValue> {
     const result = await this.db.get(key)
     return result
   }
