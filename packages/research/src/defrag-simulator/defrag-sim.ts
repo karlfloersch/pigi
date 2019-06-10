@@ -1,5 +1,4 @@
 import { LevelRangeStore, RangeEntry  } from '@pigi/operator'
-import { RandomNumberGenerationSource } from 'd3-random'
 
 /* Logging Imports */
 import debug from 'debug'
@@ -14,14 +13,22 @@ export class DefragSim {
     readonly db: LevelRangeStore,
     readonly randomSeed: string,
     readonly randomGenerators: {
-      depositRangeLength: RandomNumberGenerationSource,
-      depositRecurrence: RandomNumberGenerationSource,
-      sendRangeLength: RandomNumberGenerationSource,
-      recipient: RandomNumberGenerationSource,
+      numUsers: () => number,
+      depositRangeLength: () => number,
+      depositRecurrence: () => number,
+      sendRangeLength: () => number,
+      recipient: () => number,
     },
     readonly executeDefrag: any
   ) {
     log('Initializing')
+    log(
+      'Testing all of the random number gens:',
+      'Num users:', randomGenerators.numUsers(),
+      'depositRangeLength', randomGenerators.depositRangeLength(),
+      'depositRecurrence', randomGenerators.depositRecurrence(),
+      'sendRangeLength', randomGenerators.sendRangeLength(),
+      'recipient', randomGenerators.recipient())
   }
 }
 

@@ -5,6 +5,7 @@ import { DefragSim } from '../../src/defrag-simulator/defrag-sim'
 
 /* External Imports */
 import { LevelRangeStore, RangeEntry  } from '@pigi/operator'
+import { randomUniform, randomNormal } from 'd3-random'
 import level = require('level')
 import BigNum = require('bn.js')
 
@@ -37,10 +38,11 @@ describe('RangeDB', () => {
   describe('RangeDB', () => {
     it('Allows us to create a defrag sim', async() => {
       const sim = new DefragSim(rangeDB, 'test123', {
-        depositRangeLength: undefined,
-        depositRecurrence: undefined,
-        sendRangeLength: undefined,
-        recipient: undefined,
+        numUsers: (): number => Math.floor(randomUniform(10, 20)()),
+        depositRangeLength: (): number => Math.floor(randomUniform(100, 200)()),
+        depositRecurrence: (): number =>  Math.round(randomUniform(0, 1)()),
+        sendRangeLength: (): number => Math.floor(randomUniform(100, 200)()),
+        recipient: (): number => randomNormal()(),
       }, () => { log('Not implemented') })
     })
   })
