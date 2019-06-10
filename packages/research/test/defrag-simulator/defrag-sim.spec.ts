@@ -37,13 +37,13 @@ describe('RangeDB', () => {
 
   describe('RangeDB', () => {
     it('Allows us to create a defrag sim', async() => {
-      const sim = new DefragSim(rangeDB, 'test123', {
-        numUsers: (): number => Math.floor(randomUniform(10, 20)()),
+      const sim = new DefragSim(rangeDB, 10, 'test123', {
         depositRangeLength: (): number => Math.floor(randomUniform(100, 200)()),
-        depositRecurrence: (): number =>  Math.round(randomUniform(0, 1)()),
+        shouldDeposit: (): boolean => (Math.round(randomUniform(0, 1)()) === 0) ? true : false,
         sendRangeLength: (): number => Math.floor(randomUniform(100, 200)()),
         recipient: (): number => randomNormal()(),
       }, () => { log('Not implemented') })
+      sim.tick(100)
     })
   })
 })
