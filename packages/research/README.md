@@ -15,7 +15,5 @@ If you would like to enable logs you can run test with:
 env DEBUG="test:info*,info*" PKGS=research yarn test
 ```
 
-Check our our more detailed documentation below!
-
 ## Contributing
 Check out our detailed [Contributing Guide](https://github.com/plasma-group/pigi/blob/master/README.md#contributing) if you'd like to contribute to this project!
