@@ -13,19 +13,24 @@ export function greedyDefrag(rangeDB: LevelRangeStore) {
 export class User {
   public id: number
   public sim: DefragSim
+  public numDeposits: number = 0
 
   constructor(
     readonly depositRangeLength: () => number,
-    readonly shouldDeposit: () => boolean,
     readonly sendRangeLength: () => number,
     readonly recipient: () => number
   ) {}
+
+  private shouldDeposit(): boolean {
+    return this.numDeposits === 0
+  }
 
   public async tick(): Promise<void> {
     // If the user wants to, deposit
     if (this.shouldDeposit()) {
       log('User', this.id, 'depositing')
-      this.sim.deposit(this, this.depositRangeLength())
+      this.numDeposits++
+      await this.sim.deposit(this, this.depositRangeLength())
     }
   }
 }
@@ -58,7 +63,7 @@ export class DefragSim {
     log('Tick number:', this.time)
     // For each user determine if we should deposit
     for (const user of this.users) {
-      user.tick()
+      await user.tick()
     }
     // increment time
     this.time++
@@ -70,6 +75,36 @@ export class DefragSim {
     // Increment total deposits
     this.totalDeposits = this.totalDeposits.addn(amount)
     // Now add the deposit
-    this.db.put(start, this.totalDeposits, Buffer.from(new BigNum(user.id).toString('hex')))
+    await this.db.put(start, this.totalDeposits, Buffer.from(new BigNum(user.id).toString('hex')))
+  }
+
+  public async getRanges(): Promise<any[]> {
+    const res = await this.db.get(new BigNum(0), new BigNum(9999999999))
+    const ranges = []
+    for(const bnRange of res) {
+      const range = {
+        start: '0x' + bnRange.start.toString('hex'),
+        end: '0x' + bnRange.end.toString('hex'),
+        value: '0x' + bnRange.value.toString('hex'),
+      }
+      ranges.push(range)
+    }
+    return ranges
+  }
+
+  public async getNumFragments(): Promise<number> {
+    const res = await this.db.get(new BigNum(0), new BigNum(9999999999))
+    const ranges = []
+    let lastOwner
+    let numFragments = 0
+    for(const bnRange of res) {
+      if (lastOwner !== bnRange.value) {
+        // Increment the number of fragments
+        numFragments++
+        // Set the last owner to be the owner of this range
+        lastOwner = bnRange.value
+      }
+    }
+    return numFragments
   }
 }

@@ -48,11 +48,17 @@ describe('Defrag Simulator', () => {
       const numUsers = 100
       // Register 100 simple users
       for (let i = 0; i < numUsers; i++) {
-        const user = new User(simpleDepositRangeLength, simpleShouldDeposit, simpleSendRangeLength, simpleRecipient)
+        // const user = new User(simpleDepositRangeLength, simpleShouldDeposit, simpleSendRangeLength, simpleRecipient)
+        const user = new User(simpleDepositRangeLength, simpleSendRangeLength, simpleRecipient)
         sim.registerUser(user)
       }
       // Run the test 100 ticks
-      sim.tick(100)
+      await sim.tick(10)
+      // Print out the full rangeDB
+      const ranges = await sim.getRanges()
+      const fragments = await sim.getNumFragments()
+      log(ranges)
+      log('Num fragments', fragments)
     })
   })
-})
+}).timeout(99999999999)
