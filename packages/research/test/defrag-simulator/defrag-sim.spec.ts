@@ -53,7 +53,7 @@ describe('Defrag Simulator', () => {
         sim.registerUser(user)
       }
       // Run the test 100 ticks
-      await sim.tick(10)
+      await sim.tick(30)
       // Print out the full rangeDB
       const ranges = await sim.getRanges()
       const fragments = await sim.getNumFragments()

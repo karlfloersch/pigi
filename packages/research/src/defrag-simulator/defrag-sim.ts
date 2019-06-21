@@ -6,6 +6,9 @@ import BigNum = require('bn.js')
 import debug from 'debug'
 const log = debug('info:defrag-sim')
 
+/* Internal Imports */
+import { getSubRange, addRange, subtractRange } from './range-util'
+
 export function greedyDefrag(rangeDB: LevelRangeStore) {
   return rangeDB
 }
@@ -15,6 +18,7 @@ export class User {
   public sim: DefragSim
   public numDeposits: number = 0
   public userType: string = 'online'
+  public ranges = []
 
   constructor(
     readonly depositRangeLength: () => number,
@@ -31,8 +35,35 @@ export class User {
     if (this.shouldDeposit()) {
       log('User', this.id, 'depositing')
       this.numDeposits++
-      await this.sim.deposit(this, this.depositRangeLength())
+      const depositRange = await this.sim.deposit(this, this.depositRangeLength())
+      addRange(this.ranges, depositRange.start, depositRange.end)
+      // Do nothing after depositing
+      return
     }
+    // If the user has money, send
+    if (this.ranges.length > 0) {
+      log('User', this.id, 'sending')
+      // Get the range which we want to send
+      const sendRange = getSubRange(this.ranges, new BigNum(10))
+      // Pick the recipient
+      const recipient = this.getOtherUser()
+      // Transfer it!
+      await this.sim.transfer(this, recipient, sendRange)
+    } else {
+      log('User', this.id, 'has no money!')
+    }
+  }
+
+  private getOtherUser(): User {
+    let otherUser
+    while(otherUser === undefined || otherUser === this) {
+      const otherUserIndex = Math.floor(Math.random()*this.sim.users.length)
+      // if (otherUserIndex !== this.id - 1 && this.id !== 0) {
+      //   continue
+      // }
+      otherUser = this.sim.users[otherUserIndex]
+    }
+    return otherUser
   }
 }
 
@@ -70,13 +101,27 @@ export class DefragSim {
     this.time++
   }
 
-  public async deposit(user: User, amount: number): Promise<void> {
+  public async deposit(user: User, amount: number): Promise<{ start: BigNum, end: BigNum}> {
     // Store the start
     const start = new BigNum(this.totalDeposits)
     // Increment total deposits
     this.totalDeposits = this.totalDeposits.addn(amount)
     // Now add the deposit
     await this.db.put(start, this.totalDeposits, this.userToValue(user.id))
+    return {
+      start,
+      end: this.totalDeposits
+    }
+  }
+
+  public async transfer(sender: User, recipient: User, range: { start: BigNum, end: BigNum }): Promise<void> {
+    log('Transfering range:', '0x' + range.start.toString('hex'), '0x' + range.end.toString('hex'))
+    // Subtract the range from sender
+    subtractRange(sender.ranges, range.start, range.end)
+    // Add the range to recipient
+    addRange(recipient.ranges, range.start, range.end)
+    // Update our global DB
+    await this.db.put(range.start, range.end, this.userToValue(recipient.id))
   }
 
   public async getRanges(): Promise<any[]> {
@@ -94,7 +139,7 @@ export class DefragSim {
   }
 
   public async getNumFragments(): Promise<{}> {
-    const res = await this.db.get(new BigNum(0), new BigNum(9999999999))
+    const res = await this.db.get(new BigNum(0), new BigNum('99999999999999999999999999999999999'))
     const ranges = []
     let lastOwner
     let numFragments = 0
