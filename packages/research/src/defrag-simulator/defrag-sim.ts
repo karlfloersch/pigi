@@ -10,30 +10,42 @@ export function greedyDefrag(rangeDB: LevelRangeStore) {
   return rangeDB
 }
 
+export class User {
+  public id: number
+  public sim: DefragSim
+
+  constructor(
+    readonly depositRangeLength: () => number,
+    readonly shouldDeposit: () => boolean,
+    readonly sendRangeLength: () => number,
+    readonly recipient: () => number
+  ) {}
+
+  public async tick(): Promise<void> {
+    // If the user wants to, deposit
+    if (this.shouldDeposit()) {
+      log('User', this.id, 'depositing')
+      this.sim.deposit(this, this.depositRangeLength())
+    }
+  }
+}
+
 export class DefragSim {
   public totalDeposits = new BigNum(0)
+  public users: User[] = []
   public time = 0
 
   constructor(
     readonly db: LevelRangeStore,
-    readonly numUsers: number,
-    readonly randomSeed: string,
-    readonly randomGenerators: {
-      depositRangeLength: () => number,
-      shouldDeposit: () => boolean,
-      sendRangeLength: () => number,
-      recipient: () => number,
-    },
     readonly executeDefrag: any
   ) {
-    log('Initializing')
-    log(
-      'Testing all of the random number gens:',
-      'Num users:', this.numUsers,
-      'depositRangeLength', randomGenerators.depositRangeLength(),
-      'shouldDeposit', randomGenerators.shouldDeposit(),
-      'sendRangeLength', randomGenerators.sendRangeLength(),
-      'recipient', randomGenerators.recipient())
+    log('Initializing defrag simulator.')
+  }
+
+  public registerUser(user: User): void {
+    user.sim = this
+    user.id = this.users.length
+    this.users.push(user)
   }
 
   public async tick(numTimes): Promise<void> {
@@ -45,19 +57,19 @@ export class DefragSim {
   private async _tick(): Promise<void> {
     log('Tick number:', this.time)
     // For each user determine if we should deposit
-    for (let user = 0; user < this.numUsers; user++) {
-      if (this.randomGenerators.shouldDeposit()) {
-        // Store the start
-        const start = new BigNum(this.totalDeposits)
-        // Increment total deposits
-        this.totalDeposits = this.totalDeposits.addn(this.randomGenerators.depositRangeLength())
-        // Now add the deposit
-        this.db.put(start, this.totalDeposits, Buffer.from(new BigNum(user).toString('hex')))
-      }
+    for (const user of this.users) {
+      user.tick()
     }
     // increment time
     this.time++
   }
-}
 
-export const test = 10
+  public async deposit(user: User, amount: number): Promise<void> {
+    // Store the start
+    const start = new BigNum(this.totalDeposits)
+    // Increment total deposits
+    this.totalDeposits = this.totalDeposits.addn(amount)
+    // Now add the deposit
+    this.db.put(start, this.totalDeposits, Buffer.from(new BigNum(user.id).toString('hex')))
+  }
+}
