@@ -14,6 +14,7 @@ export class User {
   public id: number
   public sim: DefragSim
   public numDeposits: number = 0
+  public userType: string = 'online'
 
   constructor(
     readonly depositRangeLength: () => number,
@@ -75,7 +76,7 @@ export class DefragSim {
     // Increment total deposits
     this.totalDeposits = this.totalDeposits.addn(amount)
     // Now add the deposit
-    await this.db.put(start, this.totalDeposits, Buffer.from(new BigNum(user.id).toString('hex')))
+    await this.db.put(start, this.totalDeposits, this.userToValue(user.id))
   }
 
   public async getRanges(): Promise<any[]> {
@@ -92,19 +93,36 @@ export class DefragSim {
     return ranges
   }
 
-  public async getNumFragments(): Promise<number> {
+  public async getNumFragments(): Promise<{}> {
     const res = await this.db.get(new BigNum(0), new BigNum(9999999999))
     const ranges = []
     let lastOwner
     let numFragments = 0
+    const fragmentsByUserType = {}
     for(const bnRange of res) {
+      const user = this.userFromValue(bnRange.value)
       if (lastOwner !== bnRange.value) {
         // Increment the number of fragments
         numFragments++
+        // Increment the number of fragments for this user type
+        fragmentsByUserType[user.userType] = (fragmentsByUserType[user.userType] === undefined) ? 1 : fragmentsByUserType[user.userType] + 1
         // Set the last owner to be the owner of this range
         lastOwner = bnRange.value
       }
     }
-    return numFragments
+    return {
+      numFragments,
+      fragmentsByUserType
+    }
+  }
+
+  private userFromValue(userId: Buffer): User {
+    const id = new BigNum(userId).toNumber()
+    return this.users[id]
+  }
+
+  private userToValue(userId: number): Buffer {
+    const bufId = new BigNum(userId).toBuffer('be')
+    return bufId
   }
 }
