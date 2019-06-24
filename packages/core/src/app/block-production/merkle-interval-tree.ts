@@ -38,7 +38,7 @@ export class MerkleIntervalTree {
 
   constructor(readonly dataBlocks: any) {
     // Store the number of leaves so that generation can use it.
-    this.parseNumLeaves()
+    this.numLeaves = this.getNumLeaves()
     // Convert the data blocks into leaf nodes so that the tree can be built.
     this.generateLeafNodes()
     // Build the remaining levels of the tree.
@@ -92,8 +92,8 @@ export class MerkleIntervalTree {
   /**
    * Returns the number of leaves the tree has.
    */
-  private parseNumLeaves() {
-    this.numLeaves = this.dataBlocks.length
+  private getNumLeaves() {
+    return this.dataBlocks.length
   }
 
   /**
@@ -128,6 +128,7 @@ export class MerkleIntervalTree {
    * @param level the level of the tree, such that leaf nodes are at level 0, and the root is at the maximum level.
    */
   private calculateNumNodesinLevel(level: number) {
+    // TODO: Make this use BigNum
     return Math.ceil(this.numLeaves / 2 ** level)
   }
 
