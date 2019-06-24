@@ -17,7 +17,8 @@ export class PlasmaBlock extends MerkleIntervalTree {
 
   // The "leaf node" for the plasma block is itself the root hash of a state update tree.
   // Thus, its data blocks are in fact entire subtrees.
-  public generateLeafNode(subtree: SubtreeContents): MerkleIntervalTreeNode {  // subtree == dataBlock
+  public generateLeafNode(subtree: SubtreeContents): MerkleIntervalTreeNode {
+    // subtree == dataBlock
     // Create a state subtree for these state updates.
     const merkleStateIntervalTree = new MerkleStateIntervalTree(
       subtree.stateUpdates
@@ -57,7 +58,8 @@ export class PlasmaBlock extends MerkleIntervalTree {
    * @param assetIdPosition
    * @param blockRootHash
    */
-  public static verifyStateUpdateInclusionProof(  // TODO: Make this take 2 things, interface StateUpdateInclusionProof & blockRootHash
+  public static verifyStateUpdateInclusionProof(
+    // TODO: Make this take 2 things, interface StateUpdateInclusionProof & blockRootHash
     stateUpdate: AbiStateUpdate,
     stateTreeInclusionProof: MerkleIntervalTreeNode[],
     stateUpdatePosition: number,
@@ -83,7 +85,12 @@ export class PlasmaBlock extends MerkleIntervalTree {
     )
 
     if (stateUpdateRootAndBounds.bounds.end.lt(stateUpdate.range.end)) {
-        throw new Error('state update inclusion failed: inclusion proof bounds: ' + stateUpdateRootAndBounds.bounds + ' disagrees with SU range: ' + stateUpdate.range)
+      throw new Error(
+        'state update inclusion failed: inclusion proof bounds: ' +
+          stateUpdateRootAndBounds.bounds +
+          ' disagrees with SU range: ' +
+          stateUpdate.range
+      )
     }
 
     const addressLeafHash: Buffer = stateUpdateRootAndBounds.root.hash
