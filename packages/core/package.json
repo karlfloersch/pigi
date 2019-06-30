@@ -44,7 +44,8 @@
     "memdown": "^4.0.0",
     "uuid": "^3.3.2",
     "web3": "^1.0.0-beta.55",
-    "web3-utils": "^1.0.0-beta.55"
+    "web3-utils": "^1.0.0-beta.55",
+    "webtorrent": "^0.104.0"
   },
   "devDependencies": {
     "@types/abstract-leveldown": "^5.0.1",
