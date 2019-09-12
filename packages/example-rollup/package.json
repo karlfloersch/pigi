@@ -27,13 +27,12 @@
     "url": "https://github.com/plasma-group/pigi.git"
   },
   "dependencies": {
-    "@pigi/core": "^0.0.1-alpha.1",
+    "@pigi/core": "0.0.12",
     "@pigi/wallet": "0.0.11",
     "cors": "^2.8.5",
     "http-server": "^0.11.1"
   },
   "devDependencies": {
-    "@pigi/core": "^0.0.1-alpha.1",
     "@pigi/prettier-config": "0.0.12",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.2",
