@@ -13,6 +13,9 @@ import {
   AGGREGATOR_API,
 } from '.'
 
+const waitFor = delay => new Promise(resolve => setTimeout(resolve, delay));
+const FAKE_DELAY = 200
+
 /**
  * Simple Rollup Client enabling getting balances & sending transactions.
  */
@@ -51,10 +54,12 @@ export class MockRollupClient {
       AGGREGATOR_API.getBalances,
       account
     )
+    await waitFor(FAKE_DELAY)
     return balances
   }
 
   public async getUniswapBalances(): Promise<Balances> {
+    await waitFor(FAKE_DELAY)
     return this.getBalances(UNISWAP_ADDRESS)
   }
 
@@ -70,6 +75,7 @@ export class MockRollupClient {
         transaction,
       }
     )
+    await waitFor(FAKE_DELAY)
     return result.stateUpdate
   }
 
@@ -81,6 +87,7 @@ export class MockRollupClient {
       AGGREGATOR_API.requestFaucetFunds,
       [account, amount]
     )
+    await waitFor(FAKE_DELAY)
     return result
   }
 }
