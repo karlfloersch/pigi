@@ -1,6 +1,6 @@
 {
   "name": "@pigi/watch-eth",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Robust library for listening to Ethereum events.",
   "main": "build/index.js",
   "files": [
@@ -34,7 +34,7 @@
     "web3": "^1.0.0-beta.47"
   },
   "devDependencies": {
-    "@pigi/prettier-config": "0.0.5",
+    "@pigi/prettier-config": "0.0.6",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
     "@types/web3": "^1.0.18",
@@ -51,5 +51,5 @@
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.3.3333"
   },
-  "gitHead": "4140df1e3fa8bf7ec14c2fa5158d1502e1f1024c"
+  "gitHead": "361f4b7513092af8f60d6b53a26adebb87fd9f7c"
 }
