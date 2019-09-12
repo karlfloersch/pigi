@@ -1,6 +1,6 @@
 {
   "name": "@pigi/contracts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "PG smart contracts",
   "main": "build/index.js",
   "files": [
@@ -30,7 +30,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@pigi/prettier-config": "0.0.4",
+    "@pigi/prettier-config": "0.0.5",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
     "@types/node": "^11.11.3",
@@ -50,5 +50,6 @@
     "ethereum-waffle": "^2.0.12",
     "ethers": "^4.0.30",
     "openzeppelin-solidity": "^2.2.0"
-  }
+  },
+  "gitHead": "4140df1e3fa8bf7ec14c2fa5158d1502e1f1024c"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@pigi/wallet",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Pigi client-side smart wallet",
   "main": "build/index.js",
   "files": [
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@pigi/core": "^0.0.1-alpha.1",
-    "@pigi/prettier-config": "0.0.4",
+    "@pigi/prettier-config": "0.0.5",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.2",
     "@types/mocha": "^5.2.6",
@@ -49,5 +49,6 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "gitHead": "4140df1e3fa8bf7ec14c2fa5158d1502e1f1024c"
 }

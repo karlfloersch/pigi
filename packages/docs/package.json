@@ -1,7 +1,7 @@
 {
   "name": "@pigi/docs",
-  "private": true,
-  "version": "0.0.4",
+  "private": false,
+  "version": "0.0.5",
   "description": "PG docs",
   "author": "Plasma Group",
   "license": "MIT",
