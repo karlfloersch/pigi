@@ -1,6 +1,6 @@
 {
   "name": "@pigi/prettier-config",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "PG prettier config",
   "main": "index.json",
   "author": "Plasma Group",

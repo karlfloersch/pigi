@@ -1,6 +1,6 @@
 {
   "name": "@pigi/example-rollup",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Example rollup project",
   "main": "build/index.js",
   "files": [
@@ -27,13 +27,13 @@
     "url": "https://github.com/plasma-group/pigi.git"
   },
   "dependencies": {
-    "@pigi/core": "0.0.12",
-    "@pigi/wallet": "0.0.11",
+    "@pigi/core": "0.0.13",
+    "@pigi/wallet": "0.0.12",
     "cors": "^2.8.5",
     "http-server": "^0.11.1"
   },
   "devDependencies": {
-    "@pigi/prettier-config": "0.0.12",
+    "@pigi/prettier-config": "0.0.13",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.2",
     "@types/mocha": "^5.2.6",
