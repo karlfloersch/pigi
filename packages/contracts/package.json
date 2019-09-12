@@ -1,6 +1,6 @@
 {
   "name": "@pigi/contracts",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "PG smart contracts",
   "main": "build/index.js",
   "files": [
@@ -30,7 +30,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@pigi/prettier-config": "0.0.10",
+    "@pigi/prettier-config": "0.0.11",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
     "@types/node": "^11.11.3",
