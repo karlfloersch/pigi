@@ -1,6 +1,6 @@
 {
   "name": "@pigi/example-rollup",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Example rollup project",
   "main": "build/index.js",
   "files": [
@@ -28,13 +28,13 @@
   },
   "dependencies": {
     "@pigi/core": "^0.0.1-alpha.1",
-    "@pigi/wallet": "0.0.4",
+    "@pigi/wallet": "0.0.5",
     "cors": "^2.8.5",
     "http-server": "^0.11.1"
   },
   "devDependencies": {
     "@pigi/core": "^0.0.1-alpha.1",
-    "@pigi/prettier-config": "0.0.5",
+    "@pigi/prettier-config": "0.0.6",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.2",
     "@types/mocha": "^5.2.6",
@@ -54,5 +54,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "4140df1e3fa8bf7ec14c2fa5158d1502e1f1024c"
+  "gitHead": "361f4b7513092af8f60d6b53a26adebb87fd9f7c"
 }
