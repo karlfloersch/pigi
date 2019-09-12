@@ -1,6 +1,6 @@
 {
   "name": "@pigi/wallet",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Pigi client-side smart wallet",
   "main": "build/index.js",
   "files": [
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@pigi/core": "^0.0.1-alpha.1",
-    "@pigi/prettier-config": "0.0.3",
+    "@pigi/prettier-config": "0.0.4",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.2",
     "@types/mocha": "^5.2.6",
