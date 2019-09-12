@@ -1,6 +1,6 @@
 {
   "name": "@pigi/prettier-config",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "PG prettier config",
   "main": "index.json",
   "author": "Plasma Group",
@@ -12,5 +12,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "eacd26cf56899553a44ec0e377c428fba2125f44"
+  "gitHead": "05b10596789ea4146b85ad9a8365c23a87224581"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@pigi/watch-eth",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Robust library for listening to Ethereum events.",
   "main": "build/index.js",
   "files": [
@@ -27,6 +27,9 @@
     "ethereum",
     "events"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "Plasma Group",
   "license": "MIT",
   "dependencies": {
@@ -34,7 +37,7 @@
     "web3": "^1.0.0-beta.47"
   },
   "devDependencies": {
-    "@pigi/prettier-config": "0.0.8",
+    "@pigi/prettier-config": "0.0.9",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
     "@types/web3": "^1.0.18",
@@ -51,5 +54,5 @@
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.3.3333"
   },
-  "gitHead": "eacd26cf56899553a44ec0e377c428fba2125f44"
+  "gitHead": "05b10596789ea4146b85ad9a8365c23a87224581"
 }

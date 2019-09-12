@@ -1,6 +1,6 @@
 {
   "name": "@pigi/core",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Plasma Group client",
   "main": "build/index.js",
   "files": [
@@ -65,5 +65,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "eacd26cf56899553a44ec0e377c428fba2125f44"
+  "gitHead": "05b10596789ea4146b85ad9a8365c23a87224581"
 }
