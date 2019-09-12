@@ -1,7 +1,6 @@
 {
   "name": "@pigi/docs",
-  "private": false,
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "PG docs",
   "author": "Plasma Group",
   "license": "MIT",
@@ -12,5 +11,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "18c2b349591c62a0a84a3ceda7e04f8921544973"
+  "gitHead": "eacd26cf56899553a44ec0e377c428fba2125f44"
 }
