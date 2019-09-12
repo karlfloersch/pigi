@@ -1,6 +1,6 @@
 {
   "name": "@pigi/core",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Plasma Group client",
   "main": "build/index.js",
   "files": [
