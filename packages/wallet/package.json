@@ -1,6 +1,6 @@
 {
   "name": "@pigi/wallet",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.1",
   "description": "Pigi client-side smart wallet",
   "main": "build/index.js",
   "files": [
@@ -26,11 +26,12 @@
     "url": "https://github.com/plasma-group/pigi.git"
   },
   "dependencies": {
-    "@pigi/core": "^0.0.1-alpha.1"
+    "@pigi/core": "^0.0.1-alpha.1",
+    "async-lock": "^1.2.2"
   },
   "devDependencies": {
     "@pigi/core": "^0.0.1-alpha.1",
-    "@pigi/prettier-config": "^0.0.2-alpha.2",
+    "@pigi/prettier-config": "0.0.2",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.2",
     "@types/mocha": "^5.2.6",
