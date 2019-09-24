@@ -1,6 +1,6 @@
 {
   "name": "@pigi/wallet",
-  "version": "0.0.1-alpha.1",
+  "version": "0.0.2-alpha.0",
   "description": "Pigi client-side smart wallet",
   "main": "build/index.js",
   "files": [
@@ -26,8 +26,8 @@
     "url": "https://github.com/plasma-group/pigi.git"
   },
   "dependencies": {
-    "async-lock": "^1.2.2",
-    "@pigi/core": "latest"
+    "@pigi/core": "latest",
+    "async-lock": "^1.2.2"
   },
   "devDependencies": {
     "@pigi/core": "latest",
