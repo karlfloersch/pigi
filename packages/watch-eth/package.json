@@ -1,6 +1,6 @@
 {
   "name": "@pigi/watch-eth",
-  "version": "0.0.3-alpha.0",
+  "version": "0.0.4-alpha.0",
   "description": "Robust library for listening to Ethereum events.",
   "main": "build/index.js",
   "files": [
@@ -34,7 +34,7 @@
     "web3": "^1.0.0-beta.47"
   },
   "devDependencies": {
-    "@pigi/prettier-config": "0.0.3-alpha.0",
+    "@pigi/prettier-config": "0.0.4-alpha.0",
     "@types/chai": "^4.1.7",
     "@types/mocha": "^5.2.6",
     "@types/web3": "^1.0.18",
