@@ -16,53 +16,6 @@ contract DataTypes {
         uint blockSize;
     }
 
-    /*** Txs ***/
-    struct SwapTx {
-        address sender;
-        uint tokenType;
-        uint32 inputAmount;
-        uint32 minOutputAmount;
-        uint timeout;
-    }
-
-    struct TransferTx {
-        address sender;
-        address recipient;
-        uint tokenType;
-        uint32 amount;
-    }
-
-    /*** Transitions ***/
-    struct CreateAndTransferTransition {
-        bytes32 stateRoot;
-        uint32 senderSlotIndex;
-        uint32 recipientSlotIndex;
-        address createdAccountPubkey;
-        uint tokenType;
-        uint32 amount;
-        bytes signature;
-    }
-
-    struct TransferTransition {
-        bytes32 stateRoot;
-        uint32 senderSlotIndex;
-        uint32 recipientSlotIndex;
-        uint tokenType;
-        uint32 amount;
-        bytes signature;
-    }
-
-    struct SwapTransition {
-        bytes32 stateRoot;
-        uint32 senderSlotIndex;
-        uint32 uniswapSlotIndex;
-        uint tokenType;
-        uint32 inputAmount;
-        uint32 minOutputAmount;
-        uint timeout;
-        bytes signature;
-    }
-
     struct TransitionInclusionProof {
         uint blockNumber;
         uint transitionIndex;
@@ -70,7 +23,7 @@ contract DataTypes {
     }
 
     struct IncludedTransition {
-        bytes transition; // One of the 3 transition types
+        bytes transition;
         TransitionInclusionProof inclusionProof;
     }
 

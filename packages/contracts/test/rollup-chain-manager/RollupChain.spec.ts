@@ -21,14 +21,6 @@ import {
   DefaultSignatureProvider,
 } from '@pigi/core'
 import {
-  SwapTransition,
-  TransferTransition,
-  CreateAndTransferTransition,
-  Transfer,
-  abiEncodeTransition,
-  abiEncodeTransaction,
-  State,
-  abiEncodeState,
   DefaultRollupBlock,
 } from '@pigi/wallet'
 
@@ -91,57 +83,6 @@ describe('RollupChain', () => {
     it('should not throw as long as it gets a bytes array (even if its invalid)', async () => {
       await rollupChain.submitBlock(['0x1234', '0x1234']) // Did not throw... success!
     })
-
-    it('should process blocks many transitions', async () => {
-      // The number of transitions in our block
-      const numTransitions = 50
-
-      await rollupChain.submitBlock(['0x1234', '0x1234'])
-      // Create a block with many transitions
-      const createAndTransfer: CreateAndTransferTransition = {
-        stateRoot: getStateRoot('ab'),
-        senderSlotIndex: 2,
-        recipientSlotIndex: 2,
-        createdAccountPubkey: getAddress('11'),
-        tokenType: 0,
-        amount: 1,
-        signature: getSignature('0ad1'),
-      }
-      const transfer: TransferTransition = {
-        stateRoot: getStateRoot('ab'),
-        senderSlotIndex: 2,
-        recipientSlotIndex: 2,
-        tokenType: 0,
-        amount: 1,
-        signature: getSignature('ab10'),
-      }
-      const swap: SwapTransition = {
-        stateRoot: getStateRoot('cd'),
-        senderSlotIndex: 2,
-        uniswapSlotIndex: 0,
-        tokenType: 1,
-        inputAmount: 1,
-        minOutputAmount: 3,
-        timeout: 6,
-        signature: getSignature('1301'),
-      }
-      // Encode!
-      const encoded = [
-        abiEncodeTransition(createAndTransfer),
-        abiEncodeTransition(transfer),
-        abiEncodeTransition(swap),
-      ]
-      // Now lets build tons of these txs!!!
-      const fullCallData = []
-      for (let i = 0; i < numTransitions; i++) {
-        fullCallData.push(encoded[Math.floor(Math.random() * encoded.length)])
-      }
-      // Add the block, creating the sparse merkle tree!
-      const result = await rollupChain.submitBlock(fullCallData)
-      // If desired, log the result to check the gas usage
-      // log(result)
-      // Did not throw... success!
-    }).timeout(3000)
   })
 
   /*
