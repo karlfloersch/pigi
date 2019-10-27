@@ -69,9 +69,8 @@ contract RollupChain {
      * to be what the sparse merkle tree expects.
      */
     function verifyAndStoreStorageSlotInclusionProof(dt.IncludedStorageSlot memory _includedStorageSlot) private {
-        bytes memory storageBytes = getStorageBytes(_includedStorageSlot.storageSlot.value);
         merkleUtils.verifyAndStore(
-            storageBytes,
+            _includedStorageSlot.storageSlot.value,
             uint(_includedStorageSlot.storageSlot.slotIndex),
             _includedStorageSlot.siblings
         );
@@ -247,21 +246,5 @@ contract RollupChain {
      */
     function getTransitionHash(bytes memory _transition) public pure returns(bytes32) {
         return keccak256(_transition);
-    }
-
-    /**
-     * Get the bytes value for this storage.
-     */
-    function getStorageBytes(dt.Storage memory _storage) public view returns(bytes memory) {
-        // If it's an empty storage slot, return 32 bytes of zeros (empty value)
-        if (_storage.pubkey == 0x0000000000000000000000000000000000000000 &&
-        _storage.balances[0] == 0 &&
-        _storage.balances[1] == 0
-        ) {
-            return abi.encodePacked(uint(0));
-        }
-        // Here we don't use `abi.encode([struct])` because it's not clear
-        // how to generate that encoding client-side.
-        return abi.encode(_storage.pubkey, _storage.balances[0], _storage.balances[1]);
     }
 }

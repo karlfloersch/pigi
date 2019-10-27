@@ -28,14 +28,9 @@ contract DataTypes {
     }
 
     /*** Storage ***/
-    struct Storage {
-        address pubkey;
-        uint32[2] balances;
-    }
-
     struct StorageSlot {
         uint32 slotIndex;
-        Storage value;
+        bytes value;
     }
 
     struct IncludedStorageSlot {
