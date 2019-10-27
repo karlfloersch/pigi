@@ -72,7 +72,7 @@ describe('RollupChain', () => {
     rollupChain = await deployContract(
       wallet1,
       RollupChain,
-      [unipigEvaluator.address, rollupMerkleUtils.address, wallet1.address],
+      [unipigEvaluator.address, rollupMerkleUtils.address],
       {
         gasLimit: 6700000,
       }
@@ -90,17 +90,6 @@ describe('RollupChain', () => {
   describe('submitBlock() ', async () => {
     it('should not throw as long as it gets a bytes array (even if its invalid)', async () => {
       await rollupChain.submitBlock(['0x1234', '0x1234']) // Did not throw... success!
-    })
-
-    it('should prevent non-aggregator from submitting block', async () => {
-      const rollupChainWallet2: Contract = new Contract(
-        rollupChain.address,
-        rollupChain.interface,
-        wallet2 as any
-      )
-      await assertThrowsAsync(async () => {
-        await rollupChainWallet2.submitBlock(['0x1234', '0x1234'])
-      })
     })
 
     it('should process blocks many transitions', async () => {

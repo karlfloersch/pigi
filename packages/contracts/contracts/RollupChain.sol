@@ -14,17 +14,9 @@ contract RollupChain {
     RollupMerkleUtils merkleUtils;
     // All the blocks!
     dt.Block[] public blocks;
-    bytes32 public ZERO_BYTES32 = 0x0000000000000000000000000000000000000000000000000000000000000000;
-    bytes32[3] private FAILED_TX_OUTPUT = [ZERO_BYTES32, ZERO_BYTES32, ZERO_BYTES32];
-    // Tx types
-    uint NEW_ACCOUNT_TRANSFER_TYPE = 0;
-    uint STORED_ACCOUNT_TRANSFER_TYPE = 1;
-    uint SWAP_TYPE = 2;
-    // State tree height
-    uint STATE_TREE_HEIGHT = 32;
-
-    // TODO: eventually support multiple?
-    address aggregatorAddress;
+    // Tree heights
+    uint CONTRACT_TREE_HEIGHT = 16;
+    uint STORAGE_TREE_HEIGHT = 32;
 
     /* Events */
     event DecodedTransition(
@@ -39,10 +31,9 @@ contract RollupChain {
     /***************
      * Constructor *
      **************/
-    constructor(address _transitionEvaluatorAddress, address _rollupMerkleUtilsAddress, address _aggregatorAddress) public {
+    constructor(address _transitionEvaluatorAddress, address _rollupMerkleUtilsAddress) public {
         transitionEvaluator = TransitionEvaluator(_transitionEvaluatorAddress);
         merkleUtils = RollupMerkleUtils(_rollupMerkleUtilsAddress);
-        aggregatorAddress = _aggregatorAddress;
     }
 
     /* Methods */
@@ -56,11 +47,6 @@ contract RollupChain {
      * Submits a new block which is then rolled up.
      */
     function submitBlock(bytes[] calldata _block) external returns(bytes32) {
-        require(
-            msg.sender == aggregatorAddress,
-            "Only the aggregator may submit blocks"
-        );
-
         bytes32 root = merkleUtils.getMerkleRoot(_block);
         dt.Block memory rollupBlock = dt.Block({
             rootHash: root,
@@ -164,7 +150,7 @@ contract RollupChain {
 
         /********* #4: STORE_STORAGE_INCLUSION_PROOFS *********/
         // Now verify and store the storage inclusion proofs
-        merkleUtils.setMerkleRootAndHeight(preStateRoot, STATE_TREE_HEIGHT);
+        merkleUtils.setMerkleRootAndHeight(preStateRoot, CONTRACT_TREE_HEIGHT);
         for (uint i = 0; i < _transitionStorageSlots.length; i++) {
             verifyAndStoreStorageSlotInclusionProof(_transitionStorageSlots[i]);
         }
